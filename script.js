@@ -1,4 +1,4 @@
-if (window.location.protocol === 'https:' || window.location.protocol === 'file:') {
+if (window.location.protocol !== 'https:' && window.location.protocol !== 'file:') {
     window.location.protocol = 'https:';
 }
 
