@@ -5,6 +5,8 @@ if (window.location.protocol !== 'https:' && window.location.protocol !== 'file:
 let deg = 0;
 let fromg = document.getElementById('fromg');
 let bonk = new Audio('./bonk.mp3');
+const AudioContext = window.AudioContext || window.webkitAudioContext; // https://stackoverflow.com/a/54119854
+const audioCtx = new AudioContext();
 fromg.addEventListener('click', function() {
     deg += 45;
     if (deg >= 360) {
