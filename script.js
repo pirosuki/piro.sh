@@ -12,6 +12,6 @@ fromg.addEventListener('click', function() {
     }
     
     fromg.style.transform = 'rotate(' + deg + 'deg)';
-    bonk.play();
     bonk.currentTime = 0;
+    bonk.play();
 })
