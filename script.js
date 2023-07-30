@@ -1,3 +1,7 @@
+if (window.location.protocol === 'https:' || window.location.protocol === 'file:') {
+    window.location.protocol = 'https:';
+}
+
 let deg = 0;
 let fromg = document.getElementById('fromg');
 let bonk = new Audio('./bonk.mp3');
