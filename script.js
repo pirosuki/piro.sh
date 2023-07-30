@@ -1,6 +1,5 @@
 if (window.location.protocol !== 'https:' && window.location.protocol !== 'file:') {
-    console.log(window.location.protocol);
-    //window.location.protocol = 'https:';
+    window.location.protocol = 'https:';
 }
 
 let deg = 0;
