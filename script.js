@@ -3,10 +3,25 @@ if (window.location.protocol !== 'https:' && window.location.protocol !== 'file:
     console.log(window.location.protocol);
 }
 
-let deg = 0;
+
 let fromg = document.getElementById('fromg');
-let bonk = new Audio('./bonk.mp3');
 fromg.addEventListener('click', function() {
+    clickEvent();
+});
+fromg.addEventListener('contextmenu', e => {
+    e.preventDefault();
+    clickEvent();
+});
+addEventListener('keydown', e => {
+    let keys = ['z', 'x', 'c', 'v']
+    if (keys.includes(e.key)) {
+        clickEvent();
+    }
+})
+
+let deg = 0;
+let bonk = new Audio('./bonk.mp3');
+async function clickEvent() {
     deg += 45;
     if (deg >= 360) {
         deg = 0;
@@ -17,9 +32,7 @@ fromg.addEventListener('click', function() {
     bonk.currentTime = 0;
 
     cpsClick();
-
-    console.log(cps);
-});
+}
 
 let cps = 0;
 let combo = 0;

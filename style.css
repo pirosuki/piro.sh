@@ -13,15 +13,15 @@
 
 .counter {
     position: absolute;
-    left: 2vw;
-    font-family: sans-serif;
+    left: 1vw;
+    font-family: 'Comic Sans MS';
     font-size: 20vh;
 }
 
 #comboCounter {
-    top: 0;
+    top: -5vh;
 }
 
 #cpsCounter {
-    top: 15vh;
+    top: 12vh;
 }
