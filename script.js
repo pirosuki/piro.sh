@@ -1,5 +1,6 @@
 if (window.location.protocol !== 'https:' && window.location.protocol !== 'file:') {
-    window.location.protocol = 'https:';
+    //window.location.protocol = 'https:';
+    console.log(window.location.protocol);
 }
 
 let deg = 0;
@@ -12,6 +13,34 @@ fromg.addEventListener('click', function() {
     }
     
     fromg.style.transform = 'rotate(' + deg + 'deg)';
-    bonk.currentTime = 0;
     bonk.play();
-})
+    bonk.currentTime = 0;
+
+    cpsClick();
+
+    console.log(cps);
+});
+
+let cps = 0;
+let combo = 0;
+let cpsCounter = document.getElementById('cpsCounter');
+let comboCounter = document.getElementById('comboCounter');
+async function cpsClick() {
+    cps += 1;
+    combo += 1;
+
+    cpsCounter.textContent = cps;
+    comboCounter.textContent = combo;
+
+    await delay(1000);
+
+    cps -= 1;
+    if (cps === 0) {
+        combo = 0;
+    }
+
+    cpsCounter.textContent = cps;
+    comboCounter.textContent = combo;
+};
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
