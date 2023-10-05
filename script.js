@@ -3,7 +3,6 @@ if (window.location.protocol !== 'https:' && window.location.protocol !== 'file:
     console.log(window.location.protocol);
 }
 
-
 let fromg = document.getElementById('fromg');
 fromg.addEventListener('click', function() {
     clickEvent();
