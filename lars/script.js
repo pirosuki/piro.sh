@@ -11,21 +11,20 @@ if (popout != 'true' && popout != 'false') {
 // Get mediaSource
 const mediaSource = document.getElementById('mediaSource');
 
-// Variables for preferred devices
-let preferredVideo;
-let preferredAudio;
-
 // Get preferred devices
+let preferredVideoId;
+let preferredAudioId;
 navigator.mediaDevices.enumerateDevices()
 .then(devices => { devices.forEach(device => {
+	// Variables for preferred devices
 		if (device.label.includes('Game Capture')) {
 			if (device.kind === 'videoinput') {
-				preferredVideo = device;
+				preferredVideo = device.deviceId;
 
 				console.log("video: ", device.label);
 			}
 			else if (device.kind === 'audioinput') {
-				preferredAudio = device;
+				preferredAudio = device.deviceId;
 
 				console.log("audio: ", device.label);
 			};
@@ -34,7 +33,7 @@ navigator.mediaDevices.enumerateDevices()
 
 	// Get webcam
 	if (navigator.mediaDevices.getUserMedia) {
-		navigator.mediaDevices.getUserMedia({ video: { deviceId: preferredVideo.deviceId}, audio: { deviceId: preferredAudio.deviceId, echoCancellation: false}})
+		navigator.mediaDevices.getUserMedia({ video: { deviceId: preferredVideoId}, audio: { deviceId: preferredAudioId, echoCancellation: false}})
 		.then(stream => {
 			console.log(stream)
 			mediaSource.srcObject = stream;
