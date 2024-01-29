@@ -3,8 +3,8 @@ const urlParams = new URLSearchParams(window.location.search);
 const popout = urlParams.get('popout');
 
 // If it isnt either true or false then open a popout window with it set to true
-if (popout === 'do') {
-	window.open(window.location.href, '', 'menubar=0');
+if (popout === 'true') {
+	window.open(window.location.href.split('?')[0], '', 'menubar=0');
 	window.close();
 };
 
