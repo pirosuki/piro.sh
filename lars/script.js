@@ -3,8 +3,8 @@ const urlParams = new URLSearchParams(window.location.search);
 const popout = urlParams.get('popout');
 
 // If it isnt either true or false then open a popout window with it set to true
-if (popout != 'true' && popout != 'false') {
-	window.open(window.location.href+'?popout=true', '', 'menubar=0');
+if (popout === 'do') {
+	window.open(window.location.href, '', 'menubar=0');
 	window.close();
 };
 
@@ -12,26 +12,32 @@ if (popout != 'true' && popout != 'false') {
 const mediaSource = document.getElementById('mediaSource');
 
 // Get preferred devices
-let preferredVideoId;
-let preferredAudioId;
 navigator.mediaDevices.enumerateDevices()
-.then(devices => { devices.forEach(device => {
+.then(devices => { 
 	// Variables for preferred devices
+	let preferredVideoId;
+	let preferredAudioId;
+
+	devices.forEach(device => {
 		if (device.label.includes('Game Capture')) {
 			if (device.kind === 'videoinput') {
-				preferredVideo = device.deviceId;
+				preferredVideoId = device.deviceId;
 
 				console.log("video: ", device.label);
 			}
 			else if (device.kind === 'audioinput') {
-				preferredAudio = device.deviceId;
+				preferredAudioId = device.deviceId;
 
 				console.log("audio: ", device.label);
 			};
-		};
+		}
 	})
+	
+	getMediaStream(preferredVideoId, preferredAudioId)
+})
 
-	// Get webcam
+// Get webcam
+function getMediaStream(preferredVideoId, preferredAudioId) {
 	if (navigator.mediaDevices.getUserMedia) {
 		navigator.mediaDevices.getUserMedia({ video: { deviceId: preferredVideoId}, audio: { deviceId: preferredAudioId, echoCancellation: false}})
 		.then(stream => {
@@ -43,5 +49,4 @@ navigator.mediaDevices.enumerateDevices()
 			console.log(err);
 		});
 	};
-});
-
+}
