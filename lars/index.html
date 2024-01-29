@@ -3,6 +3,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<video id='mediaSource' autoplay=true poster='cat-laundry.gif'></video>
+	<video id='mediaDisplay' autoplay=true onloadstart="this.volume=0.25" poster='cat-laundry.gif'></video>
+	<input id='volumeSlider' class='interfaceItem' type='range' orient='vertical' min='0' max='100' value='25'>
 	<script src='./script.js'></script>
 </body>

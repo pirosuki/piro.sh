@@ -9,7 +9,7 @@ if (popout === 'true') {
 };
 
 // Get mediaSource
-const mediaSource = document.getElementById('mediaSource');
+const mediaDisplay = document.getElementById('mediaDisplay');
 
 // Get preferred devices
 navigator.mediaDevices.enumerateDevices()
@@ -42,7 +42,7 @@ function getMediaStream(preferredVideoId, preferredAudioId) {
 		navigator.mediaDevices.getUserMedia({ video: { deviceId: preferredVideoId}, audio: { deviceId: preferredAudioId, echoCancellation: false}})
 		.then(stream => {
 			console.log(stream)
-			mediaSource.srcObject = stream;
+			mediaDisplay.srcObject = stream;
 		})
 		.catch(err => {
 			console.log("Brokie!");
@@ -50,3 +50,26 @@ function getMediaStream(preferredVideoId, preferredAudioId) {
 		});
 	};
 }
+
+// volumeSlider logic
+const volumeSlider = document.getElementById('volumeSlider');
+volumeSlider.addEventListener('change', function(e) {
+	mediaDisplay.volume = e.currentTarget.value / 100;
+});
+
+// Hide interface after no movement
+
+let interfaceTimeout;
+const interfaceItem = document.getElementsByClassName('interfaceItem')[0];
+mediaDisplay.addEventListener('mousemove', function() {
+	interfaceItem.style.opacity = 1;
+	document.body.style.cursor = 'initial';
+
+	clearTimeout(interfaceTimeout);
+
+	interfaceTimeout = setTimeout(() => {
+		interfaceItem.style.opacity = 0;
+		document.body.style.cursor = 'none';
+	}, 1000);
+});
+
