@@ -6,12 +6,17 @@
 
 <body>
 	<div id="options">
-		<div id="qualityTitle">Quality</div>
-		<select id="qualitySelect"></select>
+		<div id="videoTitle" class="optionsItemTitle">Video</div>
+		<select id="videoSelect" class="optionsItemSelect"></select>
+		<div id="audioTitle" class="optionsItemTitle">Audio</div>
+		<select id="audioSelect" class="optionsItemSelect"></select>
+		<div id="qualityTitle" class="optionsItemTitle">Quality</div>
+		<select id="qualitySelect" class="optionsItemSelect"></select>
 	</div>
 	<video id='mediaDisplay' autoplay=true onloadstart="this.volume=0.25" poster='cat-laundry.gif'></video>
 	<input id='volumeSlider' class='interfaceItem' type='range' orient='horizontal' min='0' max='100'>
-	<div id="popoutButton" class="interfaceItem">⇱</div>
-	<div id="optionsButton" class="interfaceItem">⚙</div>
+	<div id="optionsButton" class="interfaceButton interfaceItem">⚙</div>
+	<div id="popoutButton" class="interfaceButton interfaceItem">⇱</div>
+	<div id="fullscreenButton" class="interfaceButton interfaceItem">⛶</div>
 	<script src='./script.js'></script>
 </body>

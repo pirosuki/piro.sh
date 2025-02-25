@@ -38,10 +38,8 @@ body {
 	opacity: 0;
 }
 
-#optionsButton,
-#popoutButton {
+.interfaceButton {
 	position: fixed;
-	right: 2vh;
 	width: fit-content;
 	height: fit-content;
 	background-color: rgba(40, 40, 40, 0.8);
@@ -54,12 +52,19 @@ body {
 	cursor: pointer;
 }
 
+#optionsButton {
+	left: 2vh;
+	top: 2vh;
+}
+
 #popoutButton {
+	right: 2vh;
 	top: 2vh;
 	rotate: 90deg;
 }
 
-#optionsButton {
+#fullscreenButton {
+	right: 2vh;
 	bottom: 2vh;
 }
 
@@ -74,20 +79,22 @@ body {
 	display: none;
 }
 
-#qualityTitle {
+.optionsItemTitle {
 	margin-left: 4vh;
 	margin-top: 4vh;
 	color: white;
 	font-size: 4vh;
 }
 
-#qualitySelect {
+.optionsItemSelect {
 	border: unset;
 	appearance: unset;
 	width: fit-content;
+	max-width: calc(100% - 6vh);
 	height: 10%;
 	display: block;
 	margin-left: 3vh;
 	border-radius: 1vh;
 	font-size: 4vh;
+	text-overflow: ellipsis;
 }

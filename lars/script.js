@@ -18,30 +18,59 @@ document.body.addEventListener('mousemove', function () {
 });
 // //
 
-// volume //
+// options //
 const volumeSlider = document.getElementById('volumeSlider');
 volumeSlider.addEventListener('change', function () {
 	mediaDisplay.volume = localStorage.volume = volumeSlider.value / 100;
 });
-
 volumeSlider.value = localStorage.volume * 100;
-// //
-
-// options //
-let popoutButtonElement = document.getElementById('popoutButton');
-popoutButtonElement.addEventListener('click', function () {
-	window.open(window.location.href.split('?')[0], '', 'menubar=0');
-});
 
 let optionsElement = document.getElementById('options');
 let optionsButtonElement = document.getElementById('optionsButton');
 optionsButtonElement.addEventListener('click', function () {
 	if (window.getComputedStyle(optionsElement).display === 'none') {
+		if (localStorage.audioDeviceId) {
+			audioSelectElement.value = localStorage.audioDeviceId;
+		}
+		if (localStorage.videoDeviceId) {
+			videoSelectElement.value = localStorage.videoDeviceId;
+		}
+		if (localStorage.width && localStorage.height && localStorage.frameRate) {
+			qualitySelectElement.value = `${localStorage.width}x${localStorage.height}x${localStorage.frameRate}`;
+		}
 		optionsElement.style.display = 'block';
 	}
 	else {
 		optionsElement.style.display = 'none'
 	};
+});
+
+let popoutButtonElement = document.getElementById('popoutButton');
+popoutButtonElement.addEventListener('click', function () {
+	window.open(window.location.href.split('?')[0], '', 'popup=1');
+});
+
+let fullscreenButtonElement = document.getElementById('fullscreenButton');
+fullscreenButtonElement.addEventListener('click', function () {
+	if (!document.fullscreenElement) {
+		document.body.requestFullscreen();
+	}
+	else {
+		document.exitFullscreen();
+	}
+
+});
+
+let videoSelectElement = document.getElementById('videoSelect');
+videoSelectElement.addEventListener('change', function () {
+	localStorage.videoDeviceId = videoSelectElement.value;
+	getStream();
+});
+
+let audioSelectElement = document.getElementById('audioSelect');
+audioSelectElement.addEventListener('change', function () {
+	localStorage.audioDeviceId = audioSelectElement.value;
+	getStream();
 });
 
 let qualitySelectElement = document.getElementById('qualitySelect');
@@ -58,7 +87,25 @@ qualitySelectElement.addEventListener('change', function () {
 	});
 });
 
-function getOptions(track) {
+function getMediaDeviceOptions() {
+	navigator.mediaDevices.enumerateDevices()
+		.then((devices) => {
+			devices.forEach(function (device) {
+				const option = document.createElement('option');
+				option.value = device.deviceId;
+				option.text = device.label;
+
+				if (device.kind === 'videoinput') {
+					videoSelectElement.appendChild(option);
+				}
+				else if (device.kind === 'audioinput') {
+					audioSelectElement.appendChild(option);
+				}
+			});
+		});
+}
+
+function getVideoOptions() {
 	const commonishResolutions = [
 		{ width: 7680, height: 4320 },
 		{ width: 3840, height: 2160 },
@@ -93,6 +140,9 @@ function getOptions(track) {
 		24
 	];
 
+	qualitySelectElement.innerHTML = '';
+
+	const track = mediaDisplay.srcObject.getVideoTracks()[0];
 	commonishResolutions.reverse().forEach(function (resolution) {
 		commonishFrameRates.reverse().forEach(function (frameRate) {
 			track.applyConstraints({
@@ -108,10 +158,7 @@ function getOptions(track) {
 				})
 				.catch(() => { })
 				.finally(() => {
-					if (localStorage.width && localStorage.height && localStorage.frameRate) {
-						qualitySelectElement.value = `${localStorage.width}x${localStorage.height}x${localStorage.frameRate}`;
-					}
-
+					// FIX // move this so it won't have to execute for every loop
 					track.applyConstraints({
 						width: { ideal: localStorage.width },
 						height: { ideal: localStorage.height },
@@ -130,30 +177,38 @@ if (navigator.mediaDevices.getUserMedia) {
 		video: true,
 		audio: true
 	})
-		.then(userMedia => {
-			localStorage.videoDeviceId = userMedia.getVideoTracks()[0].getSettings().deviceId;
-			localStorage.audioDeviceId = userMedia.getAudioTracks()[0].getSettings().deviceId;
-
-			navigator.mediaDevices.getUserMedia({
-				video: {
-					deviceId: {
-						ideal: localStorage.videoDeviceId
-					}
-				},
-				audio: {
-					deviceId: {
-						ideal: localStorage.audioDeviceId
-					},
-					echoCancellation: false
-				}
-			})
-				.then(stream => {
-					mediaDisplay.srcObject = stream;
-					getOptions(stream.getVideoTracks()[0])
-				})
-				.catch(err => {
-					console.log(err);
-				});
+		.then(() => {
+			getMediaDeviceOptions();
+			getStream();
 		});
 };
+
+function getStream() {
+	if (mediaDisplay.srcObject) {
+		mediaDisplay.srcObject.getTracks().forEach(function (track) {
+			track.stop();
+		});
+	}
+
+	navigator.mediaDevices.getUserMedia({
+		video: {
+			deviceId: {
+				ideal: localStorage.videoDeviceId
+			}
+		},
+		audio: {
+			deviceId: {
+				ideal: localStorage.audioDeviceId
+			},
+			echoCancellation: false
+		}
+	})
+		.then(stream => {
+			mediaDisplay.srcObject = stream;
+			getVideoOptions();
+		})
+		.catch(err => {
+			console.log(err);
+		});
+}
 // //
