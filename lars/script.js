@@ -136,10 +136,14 @@ if (navigator.mediaDevices.getUserMedia) {
 
 			navigator.mediaDevices.getUserMedia({
 				video: {
-					deviceId: localStorage.videoDeviceId
+					deviceId: {
+						ideal: localStorage.videoDeviceId
+					}
 				},
 				audio: {
-					deviceId: localStorage.audioDeviceId,
+					deviceId: {
+						ideal: localStorage.audioDeviceId
+					},
 					echoCancellation: false
 				}
 			})
