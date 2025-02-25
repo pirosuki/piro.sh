@@ -1,11 +1,3 @@
-// popout //
-const popout = new URLSearchParams(window.location.search).get('popout');
-if (popout === 'true') {
-	window.open(window.location.href.split('?')[0], '', 'menubar=0');
-	window.close();
-};
-// //
-
 // hide interface //
 let interfaceTimeout;
 document.body.addEventListener('mousemove', function () {
@@ -36,6 +28,11 @@ volumeSlider.value = localStorage.volume * 100;
 // //
 
 // options //
+let popoutButtonElement = document.getElementById('popoutButton');
+popoutButtonElement.addEventListener('click', function () {
+	window.open(window.location.href.split('?')[0], '', 'menubar=0');
+});
+
 let optionsElement = document.getElementById('options');
 let optionsButtonElement = document.getElementById('optionsButton');
 optionsButtonElement.addEventListener('click', function () {
