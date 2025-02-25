@@ -1,38 +1,85 @@
-* {
-	all: unset;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
-html {
+html,
+body {
 	height: 100%;
+	margin: unset;
 	background: black;
+	font-family: 'Montserrat';
+	overflow: hidden;
 }
 
 #mediaDisplay {
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
-	display: block;
 }
 
 #volumeSlider {
 	position: fixed;
-	top: 1%;
-	left: 97%;
-	background-color: rgba(255, 255, 255, 0.5);
-	border-radius: 5px;
-	width: 1%;
-	height: 98%;
+	left: 2vh;
+	bottom: 2vh;
+	background-color: gray;
+	border-radius: 0.5vh;
+	width: 40vh;
+	height: 1vh;
 }
 
 #volumeSlider::-moz-range-thumb {
-	background-color: rgba(255, 255, 255, 0.5);
+	border: unset;
+	background-color: lightgray;
 	cursor: pointer;
-	border-radius: 5px;
-	border: none;
-	width: 100%;
+	width: 2vh;
+	height: 2vh;
 }
 
-.interfaceItem  {
-	transition: 0.2s;
+.interfaceItem {
+	transition: 250ms;
 	opacity: 0;
+}
+
+#optionsButton {
+	position: fixed;
+	right: 2vh;
+	bottom: 2vh;
+	width: fit-content;
+	height: fit-content;
+	background-color: rgba(40, 40, 40, 0.8);
+	padding-left: 2vh;
+	padding-right: 2vh;
+	border-radius: 2vh;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 8vh;
+	color: white;
+	user-select: none;
+	cursor: pointer;
+}
+
+#options {
+	position: fixed;
+	width: 100vh;
+	height: calc(100% - 20vh);
+	top: 10vh;
+	left: calc(50% - 50vh);
+	border-radius: 2vh;
+	background-color: rgba(40, 40, 40, 0.8);
+}
+
+#qualityTitle {
+	margin-left: 4vh;
+	margin-top: 4vh;
+	color: white;
+	font-size: 4vh;
+}
+
+#qualitySelect {
+	border: unset;
+	appearance: unset;
+	width: fit-content;
+	height: 10%;
+	display: block;
+	margin-left: 3vh;
+	border-radius: 1vh;
+	font-size: 4vh;
 }
