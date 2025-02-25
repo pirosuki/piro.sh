@@ -111,6 +111,10 @@ function getOptions(track) {
 				})
 				.catch(() => { })
 				.finally(() => {
+					if (localStorage.width && localStorage.height && localStorage.frameRate) {
+						qualitySelectElement.value = `${localStorage.width}x${localStorage.height}x${localStorage.frameRate}`;
+					}
+
 					track.applyConstraints({
 						width: { ideal: localStorage.width },
 						height: { ideal: localStorage.height },
