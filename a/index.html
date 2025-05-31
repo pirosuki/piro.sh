@@ -1,0 +1,18 @@
+<html>
+
+<body>
+    <ol>
+        <li>
+            sudo dnf install --disableexcludes=all
+            https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E
+            %fedora).noarch.rpm
+            https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+        </li>
+        <br>
+        <li>
+            sudo dnf install --setopt=installonlypkgs=broadcom-wl broadcom-wl
+        </li>
+    </ol>
+</body>
+
+</html>
