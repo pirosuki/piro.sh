@@ -1,31 +1,28 @@
 <html>
-
-<body>
-    <ol>
-        <li>
-            do 6 meter update through apol app store
-        </li>
-        <br>
-        <li>
-            ribot
-        </li>
-        <li>
-            <p style="background-color: black; color: rgb(0, 255, 0)">
-                sudo dnf install
-                https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-                https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-            </p>
-        </li>
-        <li>
-            <p style="background-color: black; color: rgb(0, 255, 0)">
-                sudo dnf install broadcom-wl
-            </p>
-        </li>
-        <li>
-            ribot
-        </li>
-        <br>
-    </ol>
-</body>
-
+    <body>
+        <ol>
+            <li>
+                <p style="background-color: black; color: rgb(0, 255, 0)">
+                    sudo dnf install
+                    https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm
+                    -E %fedora).noarch.rpm
+                    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm
+                    -E %fedora).noarch.rpm
+                </p>
+            </li>
+            <li>
+                <p style="background-color: black; color: rgb(0, 255, 0)">
+                    sudo dnf install akmod-wl
+                </p>
+            </li>
+            <li>ribot</li>
+            <br />
+            <p style="text-shadow: 1px 1px red">if brokie:</p>
+            <li>
+                <p style="background-color: black; color: rgb(0, 255, 0)">
+                    sudo dnf reinstall kernel-modules kernel-modules-extra
+                </p>
+            </li>
+        </ol>
+    </body>
 </html>
